@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import Sidebar from './Sidebar'
 import { getTeamNames } from '../api'
+import { Route, Link } from 'react-router-dom'
+import TeamLogo from './TeamLogo'
+import Team from './Team'
 
 export default class Teams extends Component {
 	state = {
@@ -33,6 +36,18 @@ export default class Teams extends Component {
 				{loading === false && location.pathname === '/teams'
 					? <div className='sidebar-instruction'>Select a Team</div>
 					: null}
+
+				<Route path={`${match.url}/:teamId`} render={({ match }) => (
+					<div className='panel'>
+						<Team id={match.params.teamId}>
+							{(team) => team === null
+								? <h1>LOADING</h1>
+								: <div style={{width: '100%'}}>
+										<TeamLogo id={team.id} className='center' />
+									</div>}
+						</Team>
+					</div>
+				)} />
 			</div>
 			)
 	}
