@@ -3,17 +3,14 @@ import PropTypes from 'prop-types'
 
 export default class Loading extends Component {
 	static propTypes = {
-		text: PropTypes.string.inRequired,
+		text: PropTypes.string.isRequired,
 	}
-
 	static defaultProps = {
 		text: 'Loading',
 	}
-
 	state = {
 		text: this.props.text
 	}
-
 	componentDidMount () {
 		const stopper = this.props.text + '...'
 		this.interval = setInterval(() => {
@@ -22,11 +19,9 @@ export default class Loading extends Component {
 				: this.setState(({ text }) => ({ text: text + '.'}))
 		}, 300)
 	}
-
 	componentWillUnmount() {
 		window.clearInterval(this.interval)
 	}
-
 	render() {
 		return (
 			<div className='container'>
